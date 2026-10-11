@@ -7,7 +7,6 @@ template<class T> class MatrixNumerical;
 template<class T>
 T getCoFactor(const MatrixNumerical<T>& matrice, std::size_t ligne, std::size_t colonne);
 
-// T doit etre un type numerique : int, float, double, ...
 template<class T>
 class MatrixNumerical : public MatrixBase<T>
 {
@@ -40,7 +39,6 @@ T MatrixNumerical<T>::getDeterminant() const
 {
     if (this->rows != this->cols)
         throw std::invalid_argument("Le determinant exige une matrice carree");
-    // Convention utile pour le cofacteur d'une matrice 1 x 1.
     if (this->rows == 0)
         return T(1);
     if (this->rows == 1)
@@ -78,7 +76,9 @@ T getCoFactor(const MatrixNumerical<T>& matrice, std::size_t ligne, std::size_t 
         ++ligneMineur;
     }
     T determinant = mineur.getDeterminant();
-    return (ligne + colonne) % 2 == 0 ? determinant : -determinant;
+    if ((ligne + colonne) % 2 == 0)
+        return determinant;
+    return -determinant;
 }
 
 template<class T>
@@ -123,7 +123,6 @@ MatrixNumerical<double> MatrixNumerical<T>::getInverse() const
 {
     if (this->rows != this->cols || this->rows == 0)
         throw std::invalid_argument("L'inverse exige une matrice carree non vide");
-    // Conversion avant les calculs pour eviter la division entiere.
     MatrixNumerical<double> matrice(this->rows, this->cols);
     for (std::size_t i = 0; i < this->rows; ++i)
         for (std::size_t j = 0; j < this->cols; ++j)
@@ -134,7 +133,6 @@ MatrixNumerical<double> MatrixNumerical<T>::getInverse() const
     MatrixNumerical<double> inverse(this->rows, this->cols);
     for (std::size_t i = 0; i < this->rows; ++i)
         for (std::size_t j = 0; j < this->cols; ++j)
-            // Transposee des cofacteurs, divisee par le determinant.
             inverse.addElement(j, i, getCoFactor(matrice, i, j) / determinant);
     return inverse;
 }

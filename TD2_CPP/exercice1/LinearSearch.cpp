@@ -2,12 +2,19 @@
 
 int LinearSearch::search(const std::vector<int>& elements, int target)
 {
-    beginSearch(elements);
+    numberComparisons = 0;
+    int resultat = -1;
     for (int i = 0; i < (int) elements.size(); ++i)
     {
         ++numberComparisons;
         if (elements[i] == target)
-            return endSearch(i);
+        {
+            resultat = i;
+            break;
+        }
     }
-    return endSearch(-1);
+    ++totalSearch;
+    totalComparisons += numberComparisons;
+    averageComparisons = (double) totalComparisons / totalSearch;
+    return resultat;
 }

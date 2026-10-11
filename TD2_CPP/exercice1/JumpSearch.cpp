@@ -4,28 +4,31 @@
 
 int JumpSearch::search(const std::vector<int>& elements, int target)
 {
-    beginSearch(elements);
+    numberComparisons = 0;
+    int resultat = -1;
     int taille = (int) elements.size();
-    if (taille == 0)
-        return endSearch(-1);
     int pas = (int) std::sqrt(taille);
     int debut = 0;
     int fin = pas;
-    while (true)
+    while (debut < taille)
     {
         ++numberComparisons;
-        if (!(elements[fin - 1] < target))
+        if (elements[fin - 1] >= target)
             break;
         debut = fin;
-        if (debut == taille)
-            return endSearch(-1);
         fin += std::min(pas, taille - fin);
     }
     for (int i = debut; i < fin; ++i)
     {
         ++numberComparisons;
         if (elements[i] == target)
-            return endSearch(i);
+        {
+            resultat = i;
+            break;
+        }
     }
-    return endSearch(-1);
+    ++totalSearch;
+    totalComparisons += numberComparisons;
+    averageComparisons = (double) totalComparisons / totalSearch;
+    return resultat;
 }

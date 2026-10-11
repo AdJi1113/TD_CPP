@@ -8,14 +8,9 @@ class SearchingAlgorithm
 {
 protected:
     int numberComparisons;
-    void beginSearch(const std::vector<int>& elements);
-    int endSearch(int result);
-private:
     static long long totalComparisons;
     static long long totalSearch;
     static double averageComparisons;
-    static long long pendingComparisons;
-    static void updateStatistics();
 public:
     SearchingAlgorithm();
     virtual ~SearchingAlgorithm();
