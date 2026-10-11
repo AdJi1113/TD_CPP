@@ -21,11 +21,10 @@ public:
     Complex2D operator-(const Complex2D& autre) const;
     Complex2D operator*(const Complex2D& autre) const;
     Complex2D operator/(const Complex2D& autre) const;
-    // Convention du TD : comparaison des modules.
+    
     bool operator<(const Complex2D& autre) const;
     bool operator>(const Complex2D& autre) const;
 
-    // Ajouts proposes pour la derniere question.
     Complex2D& operator=(const Complex2D& autre);
     bool operator==(const Complex2D& autre) const;
     bool operator!=(const Complex2D& autre) const;

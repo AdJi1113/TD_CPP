@@ -25,7 +25,6 @@ Complex2D Complex2D::operator-(const Complex2D& autre) const
 
 Complex2D Complex2D::operator*(const Complex2D& autre) const
 {
-    // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
     return Complex2D(reel * autre.reel - imaginaire * autre.imaginaire,
                      reel * autre.imaginaire + imaginaire * autre.reel);
 }
